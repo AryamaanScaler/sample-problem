@@ -18,4 +18,15 @@ describe("GET /api/user", () => {
     expect(response.body.status).toBe("successful");
     expect(response.body.message).toBe("no users found");
   });
+
+
+  it("should return 'no users found' message if userDataStore is empty 2", async () => {
+    // Mocking fs.readFileSync to return empty array
+    fs.readFileSync.mockReturnValueOnce(JSON.stringify([]));
+
+    const response = await request(app).get("/api/user");
+    expect(response.status).toBe(200);
+    expect(response.body.status).toBe("successfu");
+    expect(response.body.message).toBe("no users found");
+  });
 });
